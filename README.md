@@ -9,3 +9,7 @@ Under development.
 - Hazards handling / branch control under implementation.
 - Moved from ID stage decoding to per stage decoding, simplifes later upgradations. 
 - Added R/R-I type Forwarding unit
+- Added load-use hazard detection unit.
+- Implemented one-cycle pipeline stall with bubble insertion.
+- Introduced centralized pipeline control for future hazard/branch handling.
+- Added PC and IF/ID write enable support for controlled pipeline stalling.
