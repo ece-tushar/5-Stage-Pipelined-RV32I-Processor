@@ -26,3 +26,14 @@ Pipeline data hazards complete
 - Add store forwarding
 - Verify loads and stores
 - Pass comprehensive pipeline regression
+
+---
+
+Implement branch support in 5-stage RV32I pipeline
+
+- Added branch forwarding support
+- Added load-to-branch hazard detection
+- Implemented BranchController
+- Added pipeline flush on taken branches
+- Added PC pipelining and branch target feedback
+- Verified branch execution, forwarding, and load hazards through regression tests
