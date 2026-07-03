@@ -13,7 +13,7 @@ endmodule
 module ProgCounter#(
     parameter DATA_WIDTH = 8
     )(input [DATA_WIDTH-1:0] DataInPC,
-      input Clk,Rst,
+      input Clk,Rst,WEn,
       output [DATA_WIDTH-1:0] AddrOutPC
       );
       
@@ -23,7 +23,7 @@ module ProgCounter#(
         if (Rst) begin
             mem <= 8'b0;
         end
-        else begin
+        else if (WEn) begin
             mem <= DataInPC;
         end
      
