@@ -79,6 +79,8 @@ struct packed {
     wire PC_WEn;
     wire IF_ID_WEn;
     
+    wire BranchTaken;
+    
     wire StrFwd;
     
     wire [DATA_WIDTH-1:0] ALU_DataOut;
@@ -103,11 +105,13 @@ struct packed {
  
  PipelineControl PCtrl (
         .StallReq(StallReq),
+        .BranchTaken(BranchTaken),
+        
         .PC_WEn(PC_WEn),
         .IF_ID_WEn(IF_ID_WEn),
-        .ID_EX_Flush(ID_EX_Flush)
-    );   
-    
+        .ID_EX_Flush(ID_EX_Flush),
+        .IF_ID_Flush(IF_ID_Flush)
+    );    
     
 //============================================================
 // I N S T R U C T I O N     F E T C H
@@ -121,6 +125,7 @@ struct packed {
                  .Immediate(EX_IG_ImmOut[7:0]),   
                  .PCnext(PC_PCnext),
                  .MainALUData(ALU_DataOut[7:0]),
+                 .BranchPC(EX_PC_PCnext),
                  .AddrOutPC(PC_RAddr));
     
      ByteAdrRAM IM (.DataIn(),  // loading from a .mem file so no need
@@ -136,14 +141,14 @@ struct packed {
      pipe_IF_ID IF_ID (
                         .Clk    (Clk),
                         .Rst    (Rst),
-                        .Flush  (1'b0),
+                        .Flush  (IF_ID_Flush),
                         .WEn(IF_ID_WEn),
                     
-                        .PC_in  (PC_RAddr),    
-                        .PC4_in (PC_PCnext),
+                        .PC_in  (),    
+                        .PC4_in (PC_RAddr),
                         .IM_in  (IM_Instr),
                     
-                        .PC_out (ID_PC_RAddr),
+                        .PC_out (),
                         .PC4_out(ID_PC_PCnext),
                         .IM_out (ID_IM_Instr)
                     );
@@ -223,6 +228,15 @@ struct packed {
 // E X E C U T E 
 //==================================================
 
+        BranchController BC (
+                .EX_IM_Instr(EX_IM_Instr),
+                .ALU_LSB(ALU_DataOut[0]),
+                
+                .SelAdderPC(Ctrl.EX_out.SelAdderPC),
+                .SelDataInPC(Ctrl.EX_out.SelDataInPC),
+                .BranchTaken(BranchTaken)
+                );
+
 //     mux2to1 # (.DATA_WIDTH(32)) 
 //    MUX_ALU0 (.DataIn0(EX_RB_DataOut1),
 //           .DataIn1({{(DATA_WIDTH-PC_DATA_WIDTH){1'b0}},ID_PC_RAddr}),  // PC isn't pipelined so dropped LUI / AUIPC
@@ -270,8 +284,8 @@ struct packed {
                         // ID
                         .ImmInstrType(),
                         // EX
-                        .SelAdderPC(Ctrl.EX_out.SelAdderPC),
-                        .SelDataInPC(Ctrl.EX_out.SelDataInPC),
+                        .SelAdderPC(),
+                        .SelDataInPC(),
                         .SelMuxALU(),
                         .SelMuxALU0(),
                         .ALUSelFunc(Ctrl.EX_out.ALUSelFunc),
