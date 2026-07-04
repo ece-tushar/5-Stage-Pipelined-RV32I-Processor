@@ -86,8 +86,6 @@ The processor was verified using a bottom-up verification methodology, beginning
 ```text
 .
 ├── images/
-│   ├── archi_draw.png
-│   └── pipelines_light.png
 │
 ├── sim/
 │   ├── mem files/
