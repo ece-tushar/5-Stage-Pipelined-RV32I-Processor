@@ -10,6 +10,9 @@ DataPath uut (.Clk(Clk),.Rst(Rst),.DataOut(DataOut));
 // probing stalling issues. 
 wire [7:0] PCOut = uut.PC_RAddr;
 wire  Stall = uut.StallReq;
+//wire  BT = uut.BranchTaken;
+wire  [31:0] Op1 = uut.MUX_ALU_DataOut1;
+wire  [31:0] Op2 = uut.MUX_ALU_DataOut2;
 wire  PCWen = uut.PC_WEn;
 wire  flush_ID = uut.ID_EX_Flush;
 wire  [31:0] IF_ID = uut.ID_IM_Instr;
@@ -69,31 +72,7 @@ begin
 end
 endtask 
 
-//task check_RB;
-//reg [31:0] target [0:31];
-//integer i;
-//integer pass, fail;
-//begin
-//pass = 0;
-//fail = 0;
-//    $readmemh("target.mem",target);
 
-//    for (i=0;i<32;i=i+1) begin
-//        if (uut.RB.mem[i] == target[i]) begin
-//                $display("PASS x%0d = %0h       |       Expected = %0h",i,uut.RB.mem[i],target[i]);
-//                pass = pass + 1;
-//            end
-//        else begin
-//                $display("FAIL x%0d = %0h       |       Expected = %0h",i,uut.RB.mem[i],target[i]);
-//                fail = fail + 1;
-//            end
-//    end
-//    $display("==============================================");
-//    $display("PASS = %0d        |       FAIL = %0d",pass,fail);
-//    $display("==============================================");
-
-//end
-//endtask 
 
 task check_DM;
 reg [31:0] target [0:63];
@@ -121,14 +100,13 @@ fail = 0;
 end
 endtask 
 
-integer k;
 
 initial begin
     write_data();
     write_program();      // LIGHTS!
     reset_PC_RB();        // CAMERA!!
     drop_reset_PC_RB();   // ACTION!!!
-    #5000;
+    #500;
     check_DM();
     $finish;
     end
