@@ -22,3 +22,15 @@ A single monolithic decoder/controller had become very restrictive for a pipelin
 - Load-use hazard detection
 - Store data and store address forwarding
 - Control hazard handling with pipeline flushing
+
+
+## Supported Instructions
+
+| Category | Instructions                                         |
+| -------- | ---------------------------------------------------- |
+| R-Type   | ADD, SUB, SLL, SLT, SLTU, XOR, SRL, SRA, OR, AND     |
+| I-Type   | ADDI, SLLI, SLTI, SLTIU, XORI, SRLI, SRAI, ORI, ANDI |
+| Load     | LB, LH, LW, LBU, LHU                                 |
+| Store    | SB, SH, SW                                           |
+| Branch   | BEQ, BNE, BLT, BGE, BLTU, BGEU                       |
+| Jump     | JAL, JALR                                            |
