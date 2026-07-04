@@ -102,7 +102,7 @@ struct packed {
     wire [DATA_WIDTH-1:0] MUX_RB_DataOut;
  
  
- //----------PIPELINE CONTROLLER---------------
+//----------PIPELINE CONTROLLER---------------
  
  PipelineControl PCtrl (
         .StallReq(StallReq),
