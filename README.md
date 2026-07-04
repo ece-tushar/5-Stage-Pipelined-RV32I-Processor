@@ -23,6 +23,9 @@ A single monolithic decoder/controller had become very restrictive for a pipelin
 - Store data and store address forwarding
 - Control hazard handling with pipeline flushing
 
+## Architecture
+
+![Processor Architecture](images/archi_draw.png)
 
 ## Supported Instructions
 
