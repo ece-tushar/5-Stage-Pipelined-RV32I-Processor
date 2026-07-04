@@ -11,6 +11,10 @@ This processor was developed as an extension of a previously completed single-cy
 
 A single monolithic decoder/controller had become very restrictive for a pipelined implementation. So, early in developement, major refactoring work was done to convert it to per-stage decoding. This made implementation and debugging a lot easier, since each decoder is response for its own stage, bugs could be narrowed down very easily. This approach greatly improves modularity for future additions. 
 
+## Architecture
+
+![Processor Architecture](images/archi_draw.png)
+
 ## Features
 
 - Classic 5-stage in-order pipeline (IF, ID, EX, MEM, WB)
@@ -23,9 +27,7 @@ A single monolithic decoder/controller had become very restrictive for a pipelin
 - Store data and store address forwarding
 - Control hazard handling with pipeline flushing
 
-## Architecture
 
-![Processor Architecture](images/archi_draw.png)
 
 ## Key Design Decisions
 
