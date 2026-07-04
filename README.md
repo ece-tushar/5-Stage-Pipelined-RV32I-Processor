@@ -78,3 +78,49 @@ The processor was verified using a bottom-up verification methodology, beginning
 * ✔️ End-to-end processor verification using complete assembly programs.
 * ✔️ Successful execution of a subtraction-based Euclidean GCD algorithm as the final functional validation.
 * ✔️ Extensive waveform-based debugging and regression testing throughout development.
+
+## Directory Structure
+
+```text
+.
+├── images/
+│   ├── archi_draw.png
+│   └── pipelines_light.png
+│
+├── sim/
+│   ├── mem files/
+│   │   ├── data.mem
+│   │   ├── program.mem
+│   │   └── target.mem
+│   └── pipe_tb.sv
+│
+├── src/
+│   ├── blocks.sv
+│   ├── components.sv
+│   ├── datapath.sv
+│   └── pipeline_registers.sv
+│
+├── development.md
+├── LICENSE
+└── README.md
+```
+
+
+
+## Current Limitations
+
+* `LUI` and `AUIPC` are currently not implemented.
+* `JALR` target alignment masking (`target[0] = 0`) is not implemented.
+* Exception, trap, and CSR support are not implemented.
+
+
+
+## Future Work
+
+* Complete the remaining RV32I instruction subset.
+* Implement exception and interrupt handling.
+* Add branch prediction.
+* Integrate instruction and data caches.
+* Develop a UVM-based verification environment.
+
+
